@@ -10,6 +10,8 @@ import express, { Express } from "express";
 import * as swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
 
+import timeout from "connect-timeout";
+
 const app: Express = express();
 import morgan from "morgan";
 import cors from "cors";
@@ -18,6 +20,7 @@ import { errorLogger, errorResponder } from "./src/common/middlewares/errors";
 import { stream } from "./src/common/config/winston";
 
 app.enable("trust proxy");
+app.use(timeout("2.5s"));
 app.use(cors());
 app.use(
   morgan(
