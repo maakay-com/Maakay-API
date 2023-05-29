@@ -1,4 +1,4 @@
-name: Deploy to linode vps once pushed to development
+name: Deploy to deta development instance once pushed to development branch
 
 on:
   push:

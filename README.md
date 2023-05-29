@@ -1,10 +1,8 @@
 # Guestbook
 
-The API serves as an Oracle/Directory for thenewboston account user to attach cross-crypto currencies to their user account.
+The API serves as an Oracle/Directory for users to attach cross-crypto currencies to their account.
 
 This serves as a place to verify the address and validity of profiles when trading/exchanging crypto.
-
-Hosted API: https://w38piy.deta.dev/
 
 ## Getting Started
 
@@ -16,31 +14,19 @@ Run the server: `npm run dev`
 
 ## Running Project (Docker)
 
-Build the docker image using `docker build -t DOCKER_USERNAME/maakay-profile-api:0.0 .`
+Pull and run mongodb
 
-Run the docker image using `docker run -p 3000:3000 DOCKER_USERNAME/maakay-profile-api:0.0`
+```
+docker pull mongo
+docker run -d -p 27017:27017 mongo:latest
+```
 
-The APIs are now available on `http://localhost:3000/`.
+Build the docker image using `docker build -t guestbook-api .`
 
-## Running Mongodb locally (docker)
+Copy the contents of .env.template file to .env and update the environment variables.
 
-$ docker pull mongo
-$ docker run -d -p 27017:27017 --name example-mongo mongo:latest
+Run the docker image using `docker run -p 3000:3000 --env-file=.env --network="host" guestbook-api`
 
-## API Endpoints
-
-`/api/v1/users`: Get account number and nonce assoited with the account number.
-
-`/api/v1/auth`: Login using accountNumber and signature. Returns JWT.
-
-`/api/v1/tokens`: Get all supported tokens.
-
-`/api/v1/address`: CRUD crypto address of the user.
-
-`/api/v1/profile/:username`: Get the public profile of the user.
-
-`/api/v1/social_profile`: CRUD all social profiles associated with the user.
-
-`/api/v1/profile_link`: CRUD all links associated with the user.
+The API docs are now available on `http://localhost:3000/api/v1/api-docs`.
 
 Happy Coding.
