@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Maakay Profile API",
-    "description": "API documentation of maakay project.",
+    "title": "Guestbook API",
+    "description": "API documentation of guestbook.",
     "version": "1.0.0"
   },
-  "host": "w38piy.deta.dev",
+  "host": "",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http", "https"],
   "securityDefinitions": {
     "jwt": {
       "type": "apiKey",
@@ -21,130 +21,9 @@
     }
   ],
   "paths": {
-    "/api/v1/address/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
+    "/api/v1/users/nonce": {
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/v1/address/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "address": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/v1/token/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/users/": {
-      "post": {
-        "description": "",
+        "description": "Get user nonce for signing",
         "parameters": [
           {
             "name": "body",
@@ -153,70 +32,10 @@
               "type": "object",
               "properties": {
                 "accountNumber": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/profile/{username}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/v1/profile/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "example": "any"
+                  "example": "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD"
                 },
-                "avatarUrl": {
-                  "example": "any"
-                },
-                "username": {
-                  "example": "any"
+                "provider": {
+                  "example": "metamask"
                 }
               }
             }
@@ -224,179 +43,26 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/v1/social_profile/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/social_profile/id": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/profile_link/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/UserNonceResponse"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/v1/profile_link/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
+          "400": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "url": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/BadRequestError"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
           }
         }
       }
     },
-    "/api/v1/auth/": {
+    "/api/v1/users/create-jwt": {
       "post": {
-        "description": "",
+        "description": "create jwt after signing nonce",
         "parameters": [
           {
             "name": "body",
@@ -405,10 +71,13 @@
               "type": "object",
               "properties": {
                 "accountNumber": {
-                  "example": "any"
+                  "example": "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD"
+                },
+                "provider": {
+                  "example": "metamask"
                 },
                 "signature": {
-                  "example": "any"
+                  "example": "0xb91467e570a6466aa9e9876cbcd013baba02900b8979d43fe208a4a4f339f5fd6007e74cd82e037b800186422fc2da167c747ef045e5d18a5f5d4300f8e1a0291c"
                 }
               }
             }
@@ -416,25 +85,52 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestError"
+            }
+          },
+          "401": {
+            "schema": {
+              "description": "Invalid Signature",
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "404": {
+            "schema": {
+              "description": "User not found or invalid provider",
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "schema": {
+              "description": "Internal Server Error",
+              "$ref": "#/definitions/SingleMessage"
+            }
           }
         }
       }
     },
-    "/api/v1/scan_transactions/": {
+    "/api/v1/users/refresh-jwt": {
       "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/v1/upgrade_subscription/": {
-      "post": {
-        "description": "",
+        "description": "generate access token from refresh token",
         "parameters": [
           {
             "name": "body",
@@ -442,8 +138,8 @@
             "schema": {
               "type": "object",
               "properties": {
-                "upgradeTier": {
-                  "example": "any"
+                "refreshToken": {
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc0MzNhMjMzNTZlMzQ2M2Q1NThlODMiLCJhY2NvdW50TnVtYmVyIjoiMHgwOERjMzgzNTgyN2U3OTU4RDVBQkFlRjEyYzA5YjdDMTI4YTkzREZEIiwicHJvdmlkZXIiOiJtZXRhbWFzayIsInR5cGUiOiJSRUZSRVNIIiwiaWF0IjoxNjg1MzM2OTk0LCJleHAiOjE2ODc5Mjg5OTR9.eZS769mOjaKCHg_WNwiliSm7CSWO68kXcLLvAimzJA4"
                 }
               }
             }
@@ -451,11 +147,81 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestError"
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "schema": {
+              "description": "expired/ invalid refresh token",
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "schema": {
+              "description": "Internal Server Error",
+              "$ref": "#/definitions/SingleMessage"
+            }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SingleMessage": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "string"
+        }
+      }
+    },
+    "BadRequestError": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "msg": {
+                "type": "string",
+                "example": "string"
+              },
+              "param": {
+                "type": "string",
+                "example": "param"
+              },
+              "location": {
+                "type": "string",
+                "example": "body"
+              }
+            }
+          }
+        }
+      }
+    },
+    "UserNonceResponse": {
+      "type": "object",
+      "properties": {
+        "nonce": {
+          "type": "number",
+          "example": 12345678
         }
       }
     }
