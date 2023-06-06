@@ -29,4 +29,8 @@ Run the docker image using `docker run -p 3000:3000 --env-file=.env --network="h
 
 The API docs are now available on `http://localhost:3000/api/v1/api-docs`.
 
+## Authentication Flow
+
+![Authentication flow of guestbook api.](/assets/images/authentication_flow_guestbook.png)
+
 Happy Coding.
