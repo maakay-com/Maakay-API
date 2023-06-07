@@ -9,6 +9,7 @@ import {
 } from "../common/config/general";
 import { generateNonce } from "../common/utils/common";
 import { IUser, JWTGrantType, IAuthJwtPayload } from "./users.interface";
+import { CustomError } from "../common/interfaces/common";
 
 const getUser = async (accountNumber: string, provider: string) => {
   try {
@@ -44,7 +45,7 @@ const verifySignature = async (
     });
 
     if (!user) {
-      throw new Error(errorMessages.USER_ACCOUNT_NOT_FOUND);
+      throw new CustomError(errorMessages.USER_ACCOUNT_NOT_FOUND, 404);
     }
 
     const web3 = new Web3();
@@ -54,16 +55,12 @@ const verifySignature = async (
     );
 
     if (recoveredSigner !== accountNumber) {
-      throw new Error(errorMessages.INVALID_SIGNATURE);
+      throw new CustomError(errorMessages.INVALID_SIGNATURE, 401);
     }
 
     return user;
   } catch (error: any) {
-    if (error.message == errorMessages.INVALID_SIGNATURE) {
-      error.status = 401;
-      throw error;
-    } else if (error.message == errorMessages.USER_ACCOUNT_NOT_FOUND) {
-      error.status = 404;
+    if (error instanceof CustomError) {
       throw error;
     }
 
@@ -121,9 +118,7 @@ const verifyRefreshJWT = async (
     }
     return payload;
   } catch (error: any) {
-    let jwtError = new Error(error.message);
-    jwtError.status = 401;
-    throw jwtError;
+    throw new CustomError(error.message, 401);
   }
 };
 
