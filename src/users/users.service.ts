@@ -11,7 +11,10 @@ import { generateNonce } from "../common/utils/common";
 import { IUser, JWTGrantType, IAuthJwtPayload } from "./users.interface";
 import { CustomError } from "../common/interfaces/common";
 
-const getUser = async (accountNumber: string, provider: string) => {
+const getUser = async (
+  accountNumber: string,
+  provider: string
+): Promise<IUser> => {
   try {
     const user = await User.findOneAndUpdate(
       {

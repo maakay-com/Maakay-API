@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { IAddress } from "./common.interface";
+import { IAddress } from "./addresses.interface";
 
 const addressSchema = new mongoose.Schema<IAddress>(
   {
-    address: {
+    accountNumber: {
       type: String,
       required: true,
       minLength: 24,
@@ -14,7 +14,8 @@ const addressSchema = new mongoose.Schema<IAddress>(
       title: String,
       symbol: String,
       logoUrl: String,
-      metadata: String,
+      requiresMetadata: Boolean,
+      tokenInfoUrl: String,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
