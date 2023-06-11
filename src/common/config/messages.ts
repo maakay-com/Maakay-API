@@ -9,6 +9,11 @@ const errorMessages = {
   TOKEN_NOT_SUPPORTED: "Token is not supported.",
   METADATA_REQUIRED: "Metadata is required for this token.",
   ACCOUNT_NUMBER_NOT_VALID_FOR_TOKEN: "Account number is not valid for token.",
+  ACCCOUNT_NUMBER_FOR_TOKEN_ALREADY_EXISTS:
+    "Account number for token already exists.",
+  OBJECT_WITH_ID_NOT_FOUND: "Object with given ID not found.",
+  INVALID_OBJECT_ID: "Invalid Object ID.",
+  USER_NOT_AUTHORIZED: "You do not have permission to perform this action",
 };
 
 export { successMessages, errorMessages };

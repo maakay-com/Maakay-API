@@ -34,7 +34,7 @@ const tokenData: ITokenData[] = [
   },
   {
     title: "Ethereum",
-    symbol: "ETH",
+    symbol: "eth",
     logoUrl: "eth_logo.com",
     requiresMetadata: false,
     tokenInfoUrl: "https://etherscan.io/address/",

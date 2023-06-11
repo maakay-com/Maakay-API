@@ -5,7 +5,7 @@ const seedUserAddress = async (userId: string) => {
     {
       accountNumber: "0x123456789123456789123456789",
       token: {
-        symbol: "ETH",
+        symbol: "eth",
         title: "Ethereum",
         logoUrl: "https://eth.io/logo.png",
         requiresMetadata: false,
@@ -15,9 +15,9 @@ const seedUserAddress = async (userId: string) => {
       user: userId,
     },
     {
-      accountNumber: "0x987654321123456789123456789",
+      accountNumber: "3ExEQtSxPTQuzpRfqSGEsBJM8FxuswmqLU",
       token: {
-        symbol: "BTC",
+        symbol: "btc",
         title: "Bitcoin",
         logoUrl: "https://btc.io/logo.png",
         requiresMetadata: false,
@@ -28,7 +28,8 @@ const seedUserAddress = async (userId: string) => {
     },
   ];
 
-  await Address.insertMany(addresses);
+  const newAddresses = await Address.insertMany(addresses);
+  return newAddresses;
 };
 
 export { seedUserAddress };

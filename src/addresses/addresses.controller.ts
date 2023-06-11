@@ -1,6 +1,10 @@
 import { NextFunction, Response, Request } from "express";
 
-import { getAddresses, createAddress } from "./addresses.service";
+import {
+  getAddresses,
+  createAddress,
+  updateAddress,
+} from "./addresses.service";
 import { AuthenticatedRequest } from "../common/interfaces/common";
 
 const getAll = async (
@@ -30,7 +34,20 @@ const create = async (
   }
 };
 
-const update = async (req: Request, res: Response) => {};
+const update = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const addressId = req.params.id;
+    const user = req.user!;
+    const updatedAddress = await updateAddress(addressId, user, req.body);
+    res.status(200).json(updatedAddress);
+  } catch (error) {
+    next(error);
+  }
+};
 const remove = async (req: Request, res: Response) => {};
 
 export { getAll, create, update, remove };
