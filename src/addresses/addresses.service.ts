@@ -75,4 +75,22 @@ const updateAddress = async (
   }
 };
 
-export { getAddresses, createAddress, updateAddress };
+const deleteAddress = async (addressId: string, user: IUser) => {
+  try {
+    const address = await Address.findById(addressId);
+    if (!address) {
+      throw new CustomError(errorMessages.OBJECT_WITH_ID_NOT_FOUND, 404);
+    }
+
+    if (user._id.toString() != address.user._id.toString()) {
+      throw new CustomError(errorMessages.USER_NOT_AUTHORIZED, 401);
+    }
+
+    const deletedAddress = await Address.findOneAndDelete({ _id: addressId });
+    return deletedAddress;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { getAddresses, createAddress, updateAddress, deleteAddress };

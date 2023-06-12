@@ -505,3 +505,83 @@ describe("PUT /api/v1/addresses/:id", () => {
     expect(res.body.token.symbol).toBe("btc");
   });
 });
+
+describe("DELETE /api/v1/addresses/:id", () => {
+  it("should return 401 if user is not authenticated", async () => {
+    const res = await request(app).delete(
+      "/api/v1/addresses/63b26312f2903f1a5b022546"
+    );
+
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+  });
+
+  it("should return 404 if address does not exists", async () => {
+    const { accessToken } = await getAuthenticatedUserJWT();
+
+    const res = await request(app)
+      .delete("/api/v1/addresses/63b26312f2903f1a5b022546")
+      .set({
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      });
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        message: errorMessages.OBJECT_WITH_ID_NOT_FOUND,
+      })
+    );
+  });
+
+  it("should return 401 if user is not owner of address", async () => {
+    const user = await getUser(
+      "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD",
+      "metamask"
+    );
+    const addresses = await seedUserAddress(user._id);
+
+    const secondUser = await getUser(
+      "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD",
+      "phantom"
+    );
+
+    const accessToken = await generateJWT(secondUser, "ACCESS");
+
+    const res = await request(app)
+      .delete(`/api/v1/addresses/${addresses[0]._id.toString()}`)
+      .set({
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      });
+
+    expect(res.status).toBe(401);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        message: errorMessages.USER_NOT_AUTHORIZED,
+      })
+    );
+  });
+
+  it("should return 200 when address is deleted", async () => {
+    const user = await getUser(
+      "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD",
+      "metamask"
+    );
+    const accessToken = await generateJWT(user, "ACCESS");
+
+    const addresses = await seedUserAddress(user._id);
+
+    const res = await request(app)
+      .delete(`/api/v1/addresses/${addresses[0]._id.toString()}`)
+      .set({
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("_id");
+  });
+});

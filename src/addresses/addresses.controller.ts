@@ -4,6 +4,7 @@ import {
   getAddresses,
   createAddress,
   updateAddress,
+  deleteAddress,
 } from "./addresses.service";
 import { AuthenticatedRequest } from "../common/interfaces/common";
 
@@ -48,6 +49,19 @@ const update = async (
     next(error);
   }
 };
-const remove = async (req: Request, res: Response) => {};
+const remove = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const addressId = req.params.id;
+    const user = req.user!;
+    const deletedAddress = await deleteAddress(addressId, user);
+    res.status(200).json(deletedAddress);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export { getAll, create, update, remove };
