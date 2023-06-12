@@ -34,7 +34,7 @@ const isAuthorized = async (
     if (!user) {
       throw new CustomError(
         errorMessages.USER_ASSOCIATED_WITH_JWT_NOT_FOUND,
-        404
+        401
       );
     }
 

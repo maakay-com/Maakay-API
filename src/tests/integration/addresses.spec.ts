@@ -33,7 +33,7 @@ describe("GET /api/v1/addresses", () => {
     expect(res.body).toHaveProperty("message");
   });
 
-  it("should return 404 if user associated with jwt is not found", async () => {
+  it("should return 401 if user associated with jwt is not found", async () => {
     const accessToken = await getDeletedUserJWT();
     const res = await request(app)
       .get("/api/v1/addresses")
@@ -42,7 +42,7 @@ describe("GET /api/v1/addresses", () => {
         Authorization: `Bearer ${accessToken}`,
       });
 
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(401);
     expect(res.body).toHaveProperty("message");
     expect(res.body).toEqual(
       expect.objectContaining({
@@ -126,7 +126,7 @@ describe("POST /api/v1/addresses", () => {
     expect(res.body).toHaveProperty("message");
   });
 
-  it("should return 404 if user associated with jwt is not found", async () => {
+  it("should return 401 if user associated with jwt is not found", async () => {
     const accessToken = await getDeletedUserJWT();
     const res = await request(app)
       .post("/api/v1/addresses")
@@ -135,7 +135,7 @@ describe("POST /api/v1/addresses", () => {
         Authorization: `Bearer ${accessToken}`,
       });
 
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(401);
     expect(res.body).toHaveProperty("message");
     expect(res.body).toEqual(
       expect.objectContaining({
@@ -242,7 +242,7 @@ describe("POST /api/v1/addresses", () => {
       .send({
         accountNumber: "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD",
         token: {
-          symbol: "BTC",
+          symbol: "btc",
         },
       })
       .set({
@@ -307,7 +307,6 @@ describe("POST /api/v1/addresses", () => {
         token: {
           symbol: "btc",
         },
-        metadata: "test",
       })
       .set({
         Accept: "application/json",
@@ -389,7 +388,7 @@ describe("PUT /api/v1/addresses/:id", () => {
       .send({
         accountNumber: "0x08Dc3835827e7958D5ABAeF12c09b7C128a93DFD",
         token: {
-          symbol: "BTC",
+          symbol: "btc",
         },
       })
       .set({
