@@ -32,8 +32,10 @@ app.use(
 app.use(express.json());
 
 import userRouter from "./src/users/users.route";
+import addressRouter from "./src/addresses/addresses.route";
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(errorLogger);

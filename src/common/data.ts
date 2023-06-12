@@ -1,3 +1,11 @@
+interface ITokenData {
+  title: string;
+  symbol: string;
+  logoUrl: string;
+  requiresMetadata: boolean;
+  tokenInfoUrl: string;
+}
+
 const platformData = [
   {
     title: "Facebook",
@@ -16,24 +24,28 @@ const platformData = [
   },
 ];
 
-const tokenData = [
+const tokenData: ITokenData[] = [
   {
-    name: "Bitcoin",
-    symbol: "BTC",
+    title: "Bitcoin",
+    symbol: "btc",
     logoUrl: "btc_logo.com",
     requiresMetadata: false,
     tokenInfoUrl: "https://www.blockchain.com/btc/address/",
   },
   {
-    name: "Ethereum",
-    symbol: "ETH",
+    title: "Ethereum",
+    symbol: "eth",
     logoUrl: "eth_logo.com",
     requiresMetadata: false,
     tokenInfoUrl: "https://etherscan.io/address/",
   },
+  {
+    title: "Stellar",
+    symbol: "xlm",
+    logoUrl: "xlm_logo.com",
+    requiresMetadata: true,
+    tokenInfoUrl: "https://stellar.expert/explorer/public/account/",
+  },
 ];
 
-module.exports = {
-  platformData,
-  tokenData,
-};
+export { platformData, tokenData };
