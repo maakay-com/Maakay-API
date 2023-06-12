@@ -34,14 +34,13 @@ const addressSchema = [
 
       return true;
     }),
-  body("metadata")
-    .custom((value, { req }) => {
-      if (req.body.token.requiresMetadata && !value) {
-        throw new Error(errorMessages.METADATA_REQUIRED);
-      }
-      return true;
-    })
-    .isString(),
+  body("metadata").custom((value, { req }) => {
+    if (req.body.token.requiresMetadata && !value && typeof value != "string") {
+      throw new Error(errorMessages.METADATA_REQUIRED);
+    }
+
+    return true;
+  }),
 ];
 
 export { addressSchema };
