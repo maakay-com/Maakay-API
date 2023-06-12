@@ -179,6 +179,184 @@
           }
         }
       }
+    },
+    "/api/v1/addresses/": {
+      "get": {
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AddressList"
+            }
+          },
+          "401": {
+            "description": "Unautorized request.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "address request parameters",
+            "schema": {
+              "$ref": "#/definitions/AddressRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "address created successfully.",
+            "schema": {
+              "$ref": "#/definitions/AddressResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/BadRequestError"
+            }
+          },
+          "401": {
+            "description": "Unautorized request.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "409": {
+            "description": "duplicate address.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{id}": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "address request parameters.",
+            "schema": {
+              "$ref": "#/definitions/AddressRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "address updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/AddressResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/BadRequestError"
+            }
+          },
+          "401": {
+            "description": "Unautorized request.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "404": {
+            "description": "address not found.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "address deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/AddressResponse"
+            }
+          },
+          "401": {
+            "description": "Unautorized request.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "404": {
+            "description": "address not found.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -222,6 +400,139 @@
         "nonce": {
           "type": "number",
           "example": 12345678
+        }
+      }
+    },
+    "AddressList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "string"
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "GA634T4M3FSSLQR7IGLCKE6F2NHLUJHELN7UVG2KYUO64SNPXVYYUSQ5"
+          },
+          "token": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "example": "Bitcoin"
+              },
+              "symbol": {
+                "type": "string",
+                "example": "symbol"
+              },
+              "logoUrl": {
+                "type": "string",
+                "example": "https://btc.io/logo.png"
+              },
+              "requiresMetadata": {
+                "type": "boolean",
+                "example": true
+              },
+              "tokenInfoUrl": {
+                "type": "string",
+                "example": "https://btc.io"
+              }
+            }
+          },
+          "metadata": {
+            "type": "string",
+            "example": "string"
+          },
+          "user": {
+            "type": "string",
+            "example": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "string"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "string"
+          }
+        }
+      }
+    },
+    "AddressRequest": {
+      "type": "object",
+      "properties": {
+        "accountNumber": {
+          "type": "string",
+          "example": "GA634T4M3FSSLQR7IGLCKE6F2NHLUJHELN7UVG2KYUO64SNPXVYYUSQ5"
+        },
+        "token": {
+          "type": "object",
+          "properties": {
+            "symbol": {
+              "type": "string",
+              "example": "xlm"
+            }
+          }
+        },
+        "metadata": {
+          "type": "string",
+          "example": "string"
+        }
+      }
+    },
+    "AddressResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "string"
+        },
+        "accountNumber": {
+          "type": "string",
+          "example": "GA634T4M3FSSLQR7IGLCKE6F2NHLUJHELN7UVG2KYUO64SNPXVYYUSQ5"
+        },
+        "token": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Bitcoin"
+            },
+            "symbol": {
+              "type": "string",
+              "example": "symbol"
+            },
+            "logoUrl": {
+              "type": "string",
+              "example": "https://btc.io/logo.png"
+            },
+            "requiresMetadata": {
+              "type": "boolean",
+              "example": true
+            },
+            "tokenInfoUrl": {
+              "type": "string",
+              "example": "https://btc.io"
+            }
+          }
+        },
+        "metadata": {
+          "type": "string",
+          "example": "string"
+        },
+        "user": {
+          "type": "string",
+          "example": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "string"
         }
       }
     }
